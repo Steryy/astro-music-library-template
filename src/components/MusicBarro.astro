@@ -1,0 +1,57 @@
+---
+import AlbumImage from "./AlbumImage.astro";
+import { formatDuration, songToAlbumSlug } from "../js/utils";
+
+import { Icon } from "astro-icon/components";
+const { song, active } = Astro.props;
+const curr = 10;
+
+import { Player, Nut } from "./qwik/AudioPlayer";
+---
+
+<div
+	class="min-h-12 h-32 m-0 lg:m-0 lg:max-h-20 w-screen p-2 lg:p-0 text-white"
+>
+		<Nut song={song}>
+
+          <AlbumImage
+			slot={"albumImage"}
+            alone={false}
+            cover={song.data.cover}
+            size="lg:size-12 size-20"
+            link={"/albums/" + songToAlbumSlug(song)}
+          />
+			<Icon slot={"prev"} name={"mdi:skip-previous"} size={32} />
+			<div slot="toggleplay">
+				<Icon class={"playicon"} name={"mdi:play"} size={32} />
+				<Icon class={"pauseicon"} name={"mdi:pause"} size={32} />
+			</div>
+
+			<Icon slot={"next"} name={"mdi:skip-next"} size={32} />
+
+			<Icon slot={"loop"} name={"mdi:loop"} size={32} />
+			<Icon slot={"shuffle"} name={"mdi:shuffle"} size={32} />
+
+			<div
+				slot="menu"
+				class="absolute top-6 flex h-full w-full items-center justify-end group-has-[:checked]/nut:rotate-180 group-has-[:focus-visible]/nut:ring-8 lg:static"
+			>
+				<Icon class={"hidden lg:block "} size={32} name={"mdi:menu"} />
+
+				<Icon
+					size={32}
+					class={"lg:hidden  bg-gray-800 rounded-full  z-40 hover:animate-bounce m-auto"}
+					name={"mdi:arrow-up"}
+				/>
+			</div>
+		</Nut>
+	</div>
+</div>
+<style is:global>
+	[aria-expanded="true"] .playicon {
+		display: none;
+	}
+	[aria-expanded="false"] .pauseicon {
+		display: none;
+	}
+</style>

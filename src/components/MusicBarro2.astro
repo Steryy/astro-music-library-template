@@ -1,0 +1,45 @@
+---
+import AlbumImage from "./AlbumImage.astro";
+import { formatDuration, songToAlbumSlug } from "../js/utils";
+
+import { Icon } from "astro-icon/components";
+const { song, active } = Astro.props;
+const curr = 10;
+---
+
+<div
+	class="bg-gray-800 rounded-xl w-full  text-white m-1 py-3 flex flex-row justify-between"
+>
+	<div class="w-max ml-4 mr-8 flex items-center">
+		<button aria-label="Move in queue">
+			<Icon name={"mdi:drag"} class={"mr-4 rotate-90"} size={32} />
+		</button>
+		<AlbumImage
+			alone={false}
+			cover={song.data.cover}
+			size="size-12"
+			link={"/albums/" + songToAlbumSlug(song)}
+		/>
+
+		<div class="ml-8">
+			{
+				song.data.title && (
+					<span class="text-lg block">{song.data.title}</span>
+				)
+			}
+			{song.data.album && <span class=" block">{song.data.album}</span>}
+		</div>
+	</div>
+
+	<div class="flex h-12 justify-between gap-8 items-center mr-4">
+		<div class="flex gap-4">
+
+		<button aria-label="Start playing the song">
+			<Icon name={"mdi:play"} size={32} />
+		</button>
+		<button aria-label="Remove song from queue">
+			<Icon name={"mdi:close"} size={32} />
+		</button>
+		</div>
+	</div>
+</div>

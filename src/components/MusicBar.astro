@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import { getAlbums, returnReduced } from "../js/utils";
+import music from "/home/steryy/Muzyka/music/rabbit_hole.mp3";
+
+// Access passed-in component props, like `<X title="Hello, World" />`
+// Fetch external data, even from a private API or database
+
+import MusicBarro from "./MusicBarro.astro";
+import MusicBarro2 from "./MusicBarro2.astro";
+
+import { Queue,NextSongs } from "./qwik/Queue.tsx";
+const songs = await getCollection("songs");
+
+const albums = getAlbums(songs, {});
+const reduced = returnReduced(albums);
+const song = songs[0];
+
+import { Icon } from "astro-icon/components";
+---
+
+<div
+	class="z-50 fixed -bottom-[calc(100vh-8rem)] transition-[bottom]
+pb-16
+	w-screen text-white bg-gray-900 group lg:h-20 h-screen has-[:checked]:bottom-0 lg:bottom-0"
+>
+	<MusicBarro active={true} song={song} />
+	<div
+		class="transition-[bottom] focus-within:bottom-24 -z-[10] duration-300
+		 bg-gray-900 py-4 lg:w-[50vw] 2xl:w-[30vw] lg:fixed w-screen rounded-xl lg:block group-has-[:checked]:bottom-24 lg:max-h-[80vh]
+		lg:-bottom-full right-8 h-[calc(100vh-9rem)]"
+	>
+		<div class="h-full rounded-xl overflow-y-scroll" tabindex="-1" >
+			<Queue name="queue" />
+      <NextSongs data={reduced} />
+			<!-- <Queue name="shuffle" /> -->
+
+	</div>
+</div>

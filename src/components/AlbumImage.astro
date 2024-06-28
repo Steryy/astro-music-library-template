@@ -1,0 +1,15 @@
+---
+// Access passed-in component props, like `<X title="Hello, World" />`
+const { cover, size, link, alone } = Astro.props;
+// Fetch external data, even from a private API or database
+---
+
+{
+	!alone ? (
+		<a class="" aria-label={!alone ? "Go to album" : ""} href={link}>
+			<img src={cover} class={`${size} rounded-full ring-4`} />
+		</a>
+	) : (
+		<img src={cover} class="size-52 rounded-full ring-4" />
+	)
+}

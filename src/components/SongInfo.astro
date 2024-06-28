@@ -1,0 +1,51 @@
+---
+import AlbumImage from "./AlbumImage.astro";
+import { formatDuration, songToAlbumSlug } from "../js/utils";
+import { Icon } from "astro-icon/components";
+import type { Song } from "../js/types";
+// Access passed-in component props, like `<X title="Hello, World" />`
+const song: Song = Astro.props.song;
+const soundcloud =
+	song.data.comment && song.data.comment[0] && song.data.comment[0];
+const isSound = soundcloud && soundcloud.includes("soundcloud");
+console.log(soundcloud);
+// Fetch external data, even from a private API or database
+---
+
+<div class="w-max flex flex-col pl-4 pt-12 gap-8 relative">
+	{song.data.title && <span class="text-6xl block">{song.data.title}</span>}
+
+	<div class="flex justify-between">
+		<div class="mb-2 w-max relative">
+			{
+				isSound && (
+					<a
+						href={soundcloud}
+						class="absolute bottom-0"
+						aria-label="Listen to song on SoundCloud"
+					>
+						<Icon size={64} name="logos:soundcloud" />
+					</a>
+				)
+			}
+
+			<div class="ml-20 inline-block">
+				<AlbumImage
+					alone={false}
+					cover={song.data.cover}
+					size="size-64"
+					link={"/albums/" + songToAlbumSlug(song)}
+				/>
+			</div>
+		</div>
+
+		<div class="flex justify-end h-min">
+			{song.data.date && <span class="text-2xl">{song.data.date}</span>}
+			{
+				song.data.album && (
+					<span class="text-2xl ml-2">{"@" + song.data.album}</span>
+				)
+			}
+		</div>
+	</div>
+</div>

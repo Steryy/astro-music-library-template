@@ -1,0 +1,27 @@
+---
+import type { Song, Album } from "../../js/types.ts";
+import { formatDuration, songToAlbumSlug } from "../../js/utils";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+export async function getStaticPaths() {
+  const songs = await getCollection("songs");
+  return songs.map((song: Song) => {
+    return {
+      params: { slug: song.id },
+      props: song,
+    };
+  });
+}
+import SongInfo from "../../components/SongInfo.astro";
+const song: Song = Astro.props;
+console.log(song);
+---
+
+<Layout title="Welcome to Astro.">
+  <div class=" text-white">
+    <SongInfo 
+			song={song}
+    />
+
+  </div>
+</Layout>

@@ -1,0 +1,22 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import { getAlbums } from "../../js/utils.ts";
+export async function getStaticPaths() {
+  const songs = await getCollection("songs");
+  const albums = getAlbums(songs, {});
+  const pages = albums.map((album) => {
+    const filteredPosts = album.songs;
+    return {
+      params: { slug: album.slug },
+      props: { posts: filteredPosts },
+    };
+  });
+  console.log(pages);
+  return pages;
+}
+
+const { tag } = Astro.params;
+const post = Astro.props;
+---
+
+<div>Good dog, {tag}!</div>

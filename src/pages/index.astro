@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import { getAlbums, formatDuration, returnReduced, slugify } from "../js/utils";
+import type { AlbumReduced, SongReduced } from "../js/types";
+const songs = await getCollection("songs");
+
+const albums = getAlbums(songs, {});
+const reduced = returnReduced(albums);
+import Search from "../components/qwik/Search";
+
+import { Icon } from "astro-icon/components";
+import music from "/home/steryy/Muzyka/music/rabbit_hole.mp3";
+---
+
+<Layout title="Welcome to Astro.">
+	<!-- <main class="h-screen overflow-hidden bg-black"> -->
+
+	<div class="text-white bg-black flex flex-col h-screen">
+		<header>
+			Library <div style="float: right">
+				<!-- <a href="/auth/login" class="button">Log in</a><a -->
+				<!-- 	href="/auth/register" -->
+				<!-- 	class="button">Register</a -->
+				<!-- > -->
+			</div>
+		</header>
+
+    <div class=" flex-1 overflow-hidden" tabindex="-1">
+			<Search  data={reduced} />
+		</div>
+
+		<div class="h-32"></div>
+	</div>
+	<!-- </main> -->
+</Layout>
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		max-width: calc(100%);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+</style>
