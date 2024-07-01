@@ -25,7 +25,7 @@ export const previous = $(() => {
         type: "prevSongRequest",
       } as SongEventPrevRequest,
     }),
-e );
+  );
   // isPlaying.value = !audioRef.value?.paused;
 });
 export const onEnded = $(() => {
@@ -57,7 +57,7 @@ export const onTimeChange = $(
   (
     progressRef: Signal<HTMLInputElement>,
     audioRef: Signal<HTMLAudioElement>,
-    changing : Signal<boolean>
+    changing: Signal<boolean>
   ) => {
     if (audioRef.value) {
       // currTIme.value = audioRef.value.currentTime;

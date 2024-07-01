@@ -7,9 +7,11 @@ const { cover, size, link, alone } = Astro.props;
 {
 	!alone ? (
 		<a class="" aria-label={!alone ? "Go to album" : ""} href={link}>
-			<img src={cover} class={`${size} rounded-full ring-4`} />
+{ cover &&	<img src={cover} class={`${size} rounded-full ring-4`} />}
 		</a>
-	) : (
-		<img src={cover} class="size-52 rounded-full ring-4" />
+) : (
+<span>
+{ cover &&	<img src={cover} class={`${size} rounded-full ring-4`} />}
+</span>
 	)
 }

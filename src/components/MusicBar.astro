@@ -1,13 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import { getAlbums, returnReduced } from "../js/utils";
-import music from "/home/steryy/Muzyka/music/rabbit_hole.mp3";
 
 // Access passed-in component props, like `<X title="Hello, World" />`
 // Fetch external data, even from a private API or database
 
 import MusicBarro from "./MusicBarro.astro";
-import MusicBarro2 from "./MusicBarro2.astro";
 
 import { Queue,NextSongs } from "./qwik/Queue.tsx";
 const songs = await getCollection("songs");
@@ -16,7 +14,6 @@ const albums = getAlbums(songs, {});
 const reduced = returnReduced(albums);
 const song = songs[0];
 
-import { Icon } from "astro-icon/components";
 ---
 
 <div

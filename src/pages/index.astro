@@ -1,16 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getCollection, getEntry, type CollectionEntry } from "astro:content";
-import { getAlbums, formatDuration, returnReduced, slugify } from "../js/utils";
-import type { AlbumReduced, SongReduced } from "../js/types";
+import { getCollection, } from "astro:content";
+import { getAlbums, returnReduced } from "../js/utils";
 const songs = await getCollection("songs");
 
 const albums = getAlbums(songs, {});
 const reduced = returnReduced(albums);
 import Search from "../components/qwik/Search";
 
-import { Icon } from "astro-icon/components";
-import music from "/home/steryy/Muzyka/music/rabbit_hole.mp3";
 ---
 
 <Layout title="Welcome to Astro.">

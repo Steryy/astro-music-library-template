@@ -6,10 +6,6 @@ interface Props {
 import "../styles/global.css";
 import MusicBar from "../components/MusicBar.astro";
 import { getCollection } from "astro:content";
-import { getAlbums, returnReduced } from "../js/utils";
-const songs = await getCollection("songs");
-const albums = getAlbums(songs, {});
-const reduced = returnReduced(albums);
 const { title } = Astro.props;
 ---
 

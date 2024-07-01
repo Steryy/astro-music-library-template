@@ -1,20 +1,14 @@
 // src/components/simple-search.jsx
 
-import { component$, $, useSignal, Slot } from "@builder.io/qwik";
+import { component$, $, useSignal, } from "@builder.io/qwik";
 import { MatPlayArrowFilled } from "@qwikest/icons/material";
 
 import {
-  getAlbums,
   formatDuration,
-  returnReduced,
-  slugify,
 } from "../../js/utils";
 import type {
-  Album,
   AlbumReduced,
-  Song,
   SongEventAddSong,
-  SongEventAddToQueue,
   SongReduced,
 } from "../../js/types";
 const Search = component$((props: { data: AlbumReduced[] }) => {
@@ -22,7 +16,7 @@ const Search = component$((props: { data: AlbumReduced[] }) => {
   const all = useSignal(data);
   const filtered = useSignal(data);
 
-  const handleInput = $(async (event) => {
+  const handleInput = $(async (event: any) => {
     const {
       target: { value },
     } = event;
@@ -36,14 +30,14 @@ const Search = component$((props: { data: AlbumReduced[] }) => {
       keys: ["name", "songs.data.title"],
     });
 
-    const results = fuse.search(value).map((toFilter) => {
+    const results = fuse.search(value).map((toFilter: any) => {
       const { item: album, matches } = toFilter;
       if (
         matches &&
-        matches.some((match) => match.key === "songs.data.title")
+        matches.some((match: any) => match.key === "songs.data.title")
       ) {
-        const filteredReviews = album.songs.filter((review) =>
-          matches.some((match) => match.value === review.data.title),
+        const filteredReviews = album.songs.filter((review: any) =>
+          matches.some((match: any) => match.value === review.data.title),
         );
         if (filteredReviews.length > 0)
           return {
@@ -85,72 +79,72 @@ const Search = component$((props: { data: AlbumReduced[] }) => {
       >
         {filtered.value.length > 0
           ? filtered.value.map((album: AlbumReduced, index) => {
-              return (
-                <div key={album.slug} class="min-h-44 w-full">
-                  <div class="relative h-6">
-                    <div class="line lline" />
-                    <div class="title ttitle">{album.name}</div>
-                    <div class="timealbum">
-                      {formatDuration(album.duration)}
-                    </div>
-                    {album.cover && (
-                      <a class="block p-1.5" href={"/albums/" + album.slug}>
-                        <img
-                          src={album.cover}
-                          class="absolute top-12 size-32"
-                        />
-                      </a>
-                    )}
+            return (
+              <div key={album.slug} class="min-h-44 w-full">
+                <div class="relative h-6">
+                  <div class="line lline" />
+                  <div class="title ttitle">{album.name}</div>
+                  <div class="timealbum">
+                    {formatDuration(album.duration)}
                   </div>
-                  <div class="cont">
-                    {album.songs?.map((song: SongReduced) => {
-                      const e = song.data;
-                      return (
-                        <div class="grid grid-cols-[auto_max-content] p-1.5">
-                          <a
-                            class={"flex items-center justify-between"}
-                            href={"/songs/" + song.id}
-                          >
-                            <span>{e.title}</span>
-                            <span>{formatDuration(e.duration)}</span>
-                          </a>
-
-                          <button
-                            onClick$={() => {
-                              console.log("fdsfdsafdas");
-                              document.dispatchEvent(
-                                new CustomEvent("songEvent", {
-                                  detail: {
-                                    type: "addSong",
-                                    payload: { song: song, cover: album.cover },
-                                  } as SongEventAddSong,
-                                }),
-                              );
-                            }}
-                            // onClick$={() => {
-                            //   document.dispatchEvent(
-                            //     new CustomEvent("songEvent", {
-                            //       detail: {
-                            //         type: "addToQueue",
-                            //         payload: { song: song, cover: album.cover },
-                            //       } as SongEventAddToQueue ,
-                            //     }),
-                            //   );
-                            // }}
-                          >
-                            <MatPlayArrowFilled style={{ fontSize: "32px" }} />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {album.cover && (
+                    <a class="block p-1.5" href={"/albums/" + album.slug}>
+                      <img
+                        src={album.cover}
+                        class="absolute top-12 size-32"
+                      />
+                    </a>
+                  )}
                 </div>
-              );
-              // return (
-              //   <li key={index}>
-              //     <a href={""}>{"fdsfsda"}</a>
-              //   </li>
-            })
+                <div class="cont">
+                  {album.songs?.map((song: SongReduced) => {
+                    const e = song.data;
+                    return (
+                      <div class="grid grid-cols-[auto_max-content] p-1.5">
+                        <a
+                          class={"flex items-center justify-between"}
+                          href={"/songs/" + song.id}
+                        >
+                          <span>{e.title}</span>
+                          <span>{formatDuration(e.duration)}</span>
+                        </a>
+
+                        <button
+                          onClick$={() => {
+                            console.log("fdsfdsafdas");
+                            document.dispatchEvent(
+                              new CustomEvent("songEvent", {
+                                detail: {
+                                  type: "addSong",
+                                  payload: { song: song, cover: album.cover },
+                                } as SongEventAddSong,
+                              }),
+                            );
+                          }}
+                        // onClick$={() => {
+                        //   document.dispatchEvent(
+                        //     new CustomEvent("songEvent", {
+                        //       detail: {
+                        //         type: "addToQueue",
+                        //         payload: { song: song, cover: album.cover },
+                        //       } as SongEventAddToQueue ,
+                        //     }),
+                        //   );
+                        // }}
+                        >
+                          <MatPlayArrowFilled style={{ fontSize: "32px" }} />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+            // return (
+            //   <li key={index}>
+            //     <a href={""}>{"fdsfsda"}</a>
+            //   </li>
+          })
           : null}
       </ul>
     </div>

@@ -1,18 +1,17 @@
 ---
 import AlbumImage from "./AlbumImage.astro";
-import { formatDuration, songToAlbumSlug } from "../js/utils";
+import {  songToAlbumSlug } from "../js/utils";
 
 import { Icon } from "astro-icon/components";
-const { song, active } = Astro.props;
-const curr = 10;
+const { song } = Astro.props;
 
-import { Player, Nut } from "./qwik/AudioPlayer";
+import {  Nut } from "./qwik/AudioPlayer";
 ---
 
 <div
 	class="min-h-12 h-32 m-0 lg:m-0 lg:max-h-20 w-screen p-2 lg:p-0 text-white"
 >
-		<Nut song={song}>
+		<Nut >
 
           <AlbumImage
 			slot={"albumImage"}

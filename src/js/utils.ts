@@ -1,13 +1,10 @@
-import type { CollectionEntry } from "astro:content";
 import {
   KeyofSongReduced,
   type Album,
   type AlbumReduced,
   type Song,
-  type SongData,
   type SongDataReduced,
   type SongReduced,
-  type SongReducedKeys,
 } from "./types";
 export const slugify = (str: string) =>
   str
@@ -32,7 +29,7 @@ export function formatDuration(duration: number) {
     padNumb(sec)
   );
 }
-export function getAlbumsNames(songs: Song[], {} = {}) {
+export function getAlbumsNames(songs: Song[], { } = {}) {
   const albums: Album[] = getAlbums(songs, {});
 
   return albums.map((album) => album.slug);
@@ -53,7 +50,7 @@ function getSongAlbum(song: Song) {
 export function songToAlbumSlug(song: Song) {
   return slugify(getSongAlbum(song));
 }
-export function getAlbums(songs: Song[], {} = {}) {
+export function getAlbums(songs: Song[], { } = {}) {
   // const albums = getAlbums(songs);
   const albums: Album[] = [];
   function findAlbumWithSlug(albums: Album[], slug: string) {

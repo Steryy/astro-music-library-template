@@ -1,8 +1,7 @@
 //
-import { getAlbums, formatDuration, returnReduced, slugify } from "../../js/utils";
-import type { AlbumReduced, SongReduced } from "../../js/types";
+import { getAlbums } from "../../js/utils";
 //
-import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 // // export async function GET({params, request}) {
 // //
 // //   return new Response(
@@ -13,11 +12,11 @@ import { getCollection, getEntry, type CollectionEntry } from "astro:content";
 // // }
 // //
 // //
-export async function GET({params, request}) {
+export async function GET() {
 
-const songs = await getCollection("songs");
+  const songs = await getCollection("songs");
 
-const albums = getAlbums(songs, {});
+  const albums = getAlbums(songs, {});
   return new Response(
     JSON.stringify(albums)
   )

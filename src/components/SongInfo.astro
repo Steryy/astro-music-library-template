@@ -1,6 +1,6 @@
 ---
 import AlbumImage from "./AlbumImage.astro";
-import { formatDuration, songToAlbumSlug } from "../js/utils";
+import {  songToAlbumSlug } from "../js/utils";
 import { Icon } from "astro-icon/components";
 import type { Song } from "../js/types";
 // Access passed-in component props, like `<X title="Hello, World" />`
@@ -30,12 +30,12 @@ console.log(soundcloud);
 			}
 
 			<div class="ml-20 inline-block">
-				<AlbumImage
+        {song.data.cover && <AlbumImage
 					alone={false}
 					cover={song.data.cover}
 					size="size-64"
 					link={"/albums/" + songToAlbumSlug(song)}
-				/>
+        />}
 			</div>
 		</div>
 
