@@ -1,54 +1,60 @@
-# Astro Starter Kit: Basics
+# Music Library Template Using Astro
 
-```sh
-npm create astro@latest -- --template basics
-```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
+##  Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
 
 ```text
-/
-├── public/
-│   └── favicon.svg
+
+├── astro.config.mjs
+├── package.json
+├── package-lock.json
+├── public
+│   ├── favicon.svg
+│   └── music/  <--- Put your music here
+├── README.md
 ├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+    ├── astro.config.mjs
+    ├── components
+    │   └── qwik/
+    ├── content
+    │   ├── astro.config.mjs
+    │   ├── config.ts
+    │   └── songs/
+    ├── convert.ts  <--- Then run this 
+    ├── env.d.ts
+    ├── js
+    │   ├── types.ts
+    │   └── utils.ts
+    ├── layouts
+    │   └── Layout.astro
+    ├── local.js
+    ├── pages
+    │   ├── albums
+    │   │   ├── index.astro
+    │   │   └── [...slug].astro
+    │   ├── api/
+    │   ├── index.astro
+    │   └── songs/
+    │       ├── index.astro
+    │       └── [...slug].astro
+    └── styles
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+In the `convert.ts` file, songs are retrieved from the `./public/music/` folder. You can also store your music files in a subdirectory and adjust the path accordingly. 
+The script scans directories within this project for song files. 
+Currently, it supports only `.mp3`, `.m4a`, and `.wav` formats (note: there was an issue with one `.wav` file generating incorrect JSON).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The duration field is required; all other fields are optional.
 
-Any static assets, like images, can be placed in the `public/` directory.
 
-## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+## Known bugs
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Contents of `content.ts` needs to be commentted so it will be ignored during build process.
 
-## 👀 Want to learn more?
+## Important Note
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Please ensure that you use only music files that you are permitted to use. 
+
